@@ -10,6 +10,7 @@ from selenium.webdriver.common.action_chains import ActionChains
 from selenium.common.exceptions import TimeoutException
 from selenium.common.exceptions import NoSuchElementException
 
+import sys
 import time
 from senhas import dealernetLogin, dealernetPassword
 
@@ -114,6 +115,12 @@ navegador.get("http://dealernet.shcnet.com.br/LoginAux.aspx?Windows")
 time.sleep(5)
 login_in_dealernet()
 time.sleep(12)
+try:
+    navegador.find_element_by_class_name("PopupBorder")
+    print("login failed! Please check system")
+    sys.exit(1)
+except NoSuchElementException:
+    print("logged!")
 end_date = datetime.today().strftime('%d/%m%Y')
 getting_os_report(end_date)
 time.sleep(5)
